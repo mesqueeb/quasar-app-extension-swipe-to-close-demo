@@ -1,0 +1,10 @@
+{
+  "version": "v1",
+  "packages": {
+    "quasar-app-extension-swipe-to-close": {
+      "signature": "708e8a8aaeffd2d4c95070cf48336d80",
+      "file": true,
+      "replaced": "^0.0.3"
+    }
+  }
+}
