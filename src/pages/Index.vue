@@ -18,8 +18,10 @@
         <div class="q-mt-sm">Currently you cannot use this with "maximized"</div>
         <QToggle label="With scrollable content" v-model="scroll" :disable="scrollDisabled" />
         <QToggle label="Maximized" v-model="maximized" disable />
+        <h5 class="q-my-sm">Try it out</h5>
         <div class="q-my-md">
           <QBtn color="accent" @click="showDialog = true">Show dialog</QBtn>
+          <QToggle color="accent" v-model="turnExtOn" :label="turnExtOn ? 'Extension enabled' : 'Extension disabled'" />
         </div>
       </div>
       <!-- <THE DIALOG> -->
@@ -28,17 +30,22 @@
         :maximized="maximized"
         :position="position"
       >
-        <q-swipe-to-close v-model="showDialog">
+        <q-swipe-to-close v-if="turnExtOn" v-model="showDialog">
           <div
             class="_dialog-contents"
             v-html="dialogInnerHtml"
           ></div>
         </q-swipe-to-close>
+        <div
+          v-if="!turnExtOn"
+          class="_dialog-contents"
+          v-html="dialogInnerHtml"
+        ></div>
       </QDialog>
       <!-- </THE DIALOG> -->
-      <div class="_template">
-        <h5 class="q-my-xs">Your template</h5>
-        <pre class="_pre bg-grey-2">{{ dialogOuterHtml }}</pre>
+      <div class="_template flex">
+        <h5 class="q-my-xs full-width">Your template</h5>
+        <textarea class="_pre bg-grey-2" v-model="dialogOuterHtml" />
       </div>
     </div>
     <img class="_bg-logo" alt="Quasar logo" src="~assets/quasar-logo-full.svg">
@@ -55,6 +62,9 @@
   overflow scroll
   padding 1rem
   border solid darkgray thin
+  max-width 350px
+  min-height 280px
+  flex 1
 
 ._demo
   position relative
@@ -73,6 +83,7 @@ export default {
   data () {
     const lorem = `<p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>`
     return {
+      turnExtOn: true,
       showDialog: false,
       position: 'bottom',
       maximized: false,
@@ -81,7 +92,7 @@ export default {
       text: {
         noScroll: `
           <div>I'm a dialog!</div><div>Drag me down!</div>
-          <div class="q-mt-xl text-bold">If you drag me ＜ 25% I will bounce back!</div>
+          <div class="q-mt-xl text-bold">If you drag me ＜ 25% (of dialog height) I will bounce back!</div>
         `,
         scrollMax: `
           <h5>In a maximized modal you can drag to close anywhere!</h5>
@@ -123,10 +134,10 @@ export default {
       return ``
     },
     dialogOuterHtml () {
+      const position = this.position ? `\n:position="${this.position}"` : ''
+      const maximized = this.maximized ? `\nmaximized` : ''
       return `<q-dialog
-  v-model="showDialog"
-  :maximized="${this.maximized}"
-  :position="${this.position}"
+  v-model="showDialog"${position}${maximized}
 >
   <q-swipe-to-close v-model="showDialog">
     <div>
