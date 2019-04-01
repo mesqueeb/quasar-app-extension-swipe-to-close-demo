@@ -1,7 +1,7 @@
 <template>
-  <q-page class="flex flex-center">
-    <div class="demo flex justify-center">
-      <div class="q-pt-lg q-px-sm">
+  <q-page padding class="flex flex-center">
+    <div class="_demo flex flex-start">
+      <div class="q-pt-lg q-mr-sm">
         <p>Set your browser to "mobile view" to have a better idea.</p>
         <h5 class="q-my-sm">Dialog settings</h5>
         <div>Currently you can only drag down, so set dialog position to "bottom" or no position.</div>
@@ -18,7 +18,7 @@
         <div class="q-mt-sm">Currently you cannot use this with "maximized"</div>
         <QToggle label="With scrollable content" v-model="scroll" :disable="scrollDisabled" />
         <QToggle label="Maximized" v-model="maximized" disable />
-        <div class="buttons">
+        <div class="q-my-md">
           <QBtn color="accent" @click="showDialog = true">Show dialog</QBtn>
         </div>
       </div>
@@ -30,42 +30,39 @@
       >
         <q-swipe-to-close v-model="showDialog">
           <div
-            class="dialog-contents"
+            class="_dialog-contents"
             v-html="dialogInnerHtml"
           ></div>
         </q-swipe-to-close>
       </QDialog>
       <!-- </THE DIALOG> -->
-      <h5 class="q-my-xs">Your template</h5>
-      <pre class="pre bg-grey-2">{{ dialogOuterHtml }}</pre>
+      <div class="_template">
+        <h5 class="q-my-xs">Your template</h5>
+        <pre class="_pre bg-grey-2">{{ dialogOuterHtml }}</pre>
+      </div>
     </div>
-    <img class="bg-logo" alt="Quasar logo" src="~assets/quasar-logo-full.svg">
+    <img class="_bg-logo" alt="Quasar logo" src="~assets/quasar-logo-full.svg">
   </q-page>
 </template>
 
 <style lang="stylus">
 
-.dialog-contents
+._dialog-contents
   background white
   padding 5rem
 
-.buttons
-  > *
-    margin 1rem
-
-.pre
+._pre
   overflow scroll
-  margin 1rem
   padding 1rem
   border solid darkgray thin
 
-.demo
+._demo
   position relative
   z-index 10
   background alpha(white, .9)
-  min-width 100vw
-  min-height 90vh
-.bg-logo
+  padding 10px
+
+._bg-logo
   position fixed
 
 </style>
