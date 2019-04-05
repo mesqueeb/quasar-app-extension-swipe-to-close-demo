@@ -15,9 +15,8 @@
           <QRadio v-model="position" :val="undefined" label="no position" />
         </div>
 
-        <div class="q-mt-sm">Currently you cannot use this with "maximized"</div>
-        <QToggle label="With scrollable content" v-model="scroll" :disable="scrollDisabled" />
-        <QToggle label="Maximized" v-model="maximized" disable />
+        <QToggle label="With scrollable content" v-model="scroll" />
+        <QToggle label="Maximized" v-model="maximized" />
         <h5 class="q-my-sm">Try it out</h5>
         <div class="q-my-md">
           <QBtn color="accent" @click="showDialog = true">Show dialog</QBtn>
@@ -109,15 +108,15 @@ export default {
     }
   },
   watch: {
-    maximized (to, from) {
-      if (to === true) {
-        this.scroll = false
-        this.scrollDisabled = true
-      }
-      if (to === false) {
-        this.scrollDisabled = false
-      }
-    }
+    // maximized (to, from) {
+    //   if (to === true) {
+    //     this.scroll = false
+    //     this.scrollDisabled = true
+    //   }
+    //   if (to === false) {
+    //     this.scrollDisabled = false
+    //   }
+    // }
   },
   computed: {
     dialogInnerHtml () {
@@ -134,8 +133,8 @@ export default {
       return ``
     },
     dialogOuterHtml () {
-      const position = this.position ? `\n:position="${this.position}"` : ''
-      const maximized = this.maximized ? `\nmaximized` : ''
+      const position = this.position ? `\n  :position="${this.position}"` : ''
+      const maximized = this.maximized ? `\n  maximized` : ''
       return `<q-dialog
   v-model="showDialog"${position}${maximized}
 >
