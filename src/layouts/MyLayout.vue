@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated class="glossy">
+    <q-header>
       <q-toolbar>
         <q-btn
           flat
@@ -13,10 +13,10 @@
         </q-btn>
 
         <q-toolbar-title>
-          Quasar extension: Swipe to close
+          Swipe to close
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <sub>Quasar v{{ $q.version }}</sub>
       </q-toolbar>
     </q-header>
 
